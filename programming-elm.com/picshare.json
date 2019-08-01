@@ -1,0 +1,75 @@
+{
+  "badfeed": [
+    {
+      "id": 1,
+      "src": "https://programming-elm.surge.sh/1.jpg",
+      "caption": null,
+      "liked": "no"
+    }
+  ],
+
+  "feed": [
+    {
+      "id": 1,
+      "url": "https://programming-elm.surge.sh/1.jpg",
+      "caption": "Surfing",
+      "liked": false,
+      "comments": ["Cowabunga, dude!"],
+      "username": "surfing_usa"
+    },
+
+    {
+      "id": 2,
+      "url": "https://programming-elm.surge.sh/2.jpg",
+      "caption": "The Fox",
+      "liked": false,
+      "comments": [],
+      "username": "elpapapollo"
+    },
+
+    {
+      "id": 3,
+      "url": "https://programming-elm.surge.sh/3.jpg",
+      "caption": "Evening",
+      "liked": false,
+      "comments": [],
+      "username": "elpapapollo"
+    }
+  ],
+
+  "wsFeed": [
+    {
+      "id": 4,
+      "url": "https://programming-elm.surge.sh/4.jpg",
+      "caption": "Tree Canopy",
+      "liked": false,
+      "comments": [],
+      "username": "elpapapollo"
+    },
+
+    {
+      "id": 5,
+      "url": "https://programming-elm.surge.sh/5.jpg",
+      "caption": "Contemplation",
+      "liked": false,
+      "comments": [],
+      "username": "be_still"
+    },
+
+    {
+      "id": 6,
+      "url": "https://programming-elm.surge.sh/6.jpg",
+      "caption": "Pretty Flowers",
+      "liked": false,
+      "comments": [],
+      "username": "the_botanist"
+    }
+  ],
+
+  "account": {
+    "name": "Emmett Brown",
+    "username": "photosgalore",
+    "bio": "Love taking photos!",
+    "avatarUrl": "https://programming-elm.surge.sh/smiley-avatar.png"
+  }
+}

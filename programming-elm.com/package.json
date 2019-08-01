@@ -1,0 +1,61 @@
+{
+  "name": "programming-elm.com",
+  "version": "1.0.0",
+  "private": true,
+  "engines": {
+    "node": "10.x"
+  },
+  "scripts": {
+    "build": "node site/build.js",
+    "deploy": "git push heroku master",
+    "deploy:static-assets": "surge -p ./static-assets",
+    "dev": "node site/dev-server.js",
+    "server:dev": "nodemon index.js",
+    "start": "node index.js",
+    "test": "npm run test:api",
+    "test:api": "run-p --race test:server test:api:run",
+    "test:api:run": "wait-on http://localhost:8001/feed && teenytest api-tests/**/*.test.js",
+    "test:server": "PORT=8001 node ."
+  },
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "cat-names": "^1.0.2",
+    "cheerio": "^1.0.0-rc.3",
+    "cors": "^2.8.4",
+    "cuid": "^2.1.0",
+    "dog-names": "^1.0.2",
+    "elm": "^0.19.0-bugfix6",
+    "elmstatic": "^0.4.0",
+    "express": "^4.16.2",
+    "express-http-proxy": "^1.1.0",
+    "http-proxy-middleware": "^0.17.4",
+    "json-server": "^0.12.1",
+    "lodash": "^4.17.5",
+    "ramda": "^0.26.1",
+    "rxjs": "^5.5.6",
+    "surge": "^0.20.1",
+    "unique-random-array": "^1.0.0",
+    "ws": "^3.3.3"
+  },
+  "devDependencies": {
+    "chokidar": "^3.0.0",
+    "glob": "^7.1.4",
+    "livereload": "^0.7.0",
+    "nodemon": "^1.18.11",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^1.11.1",
+    "replace-in-file": "^4.1.0",
+    "rimraf": "^2.6.3",
+    "serve-handler": "^6.0.0",
+    "superagent": "^4.1.0",
+    "teenytest": "^5.2.0",
+    "teenytest-promise": "^1.0.0",
+    "wait-on": "^3.2.0"
+  },
+  "teenytest": {
+    "timeout": 20000,
+    "plugins": [
+      "teenytest-promise"
+    ]
+  }
+}
