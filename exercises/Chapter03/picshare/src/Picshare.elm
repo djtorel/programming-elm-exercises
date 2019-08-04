@@ -2,14 +2,16 @@ module Picshare exposing (main)
 
 import Browser
 import Html exposing (..)
-import Html.Attributes exposing (class, src)
-import Html.Events exposing (onClick)
+import Html.Attributes exposing (class, disabled, placeholder, src, type_, value)
+import Html.Events exposing (onClick, onInput, onSubmit)
 
 
 type alias Model =
     { url : String
     , caption : String
     , liked : Bool
+    , comments : List String
+    , newComment : String
     }
 
 
@@ -23,6 +25,8 @@ initialModel =
     { url = baseUrl ++ "1.jpg"
     , caption = "Surfing"
     , liked = False
+    , comments = [ "Cowabunga, dude!" ]
+    , newComment = ""
     }
 
 
@@ -33,6 +37,7 @@ viewDetailedPhoto model =
         , div [ class "photo-info" ]
             [ viewLoveButton model
             , h2 [ class "caption" ] [ text model.caption ]
+            , viewComments model
             ]
         ]
 
@@ -41,12 +46,11 @@ viewLoveButton : Model -> Html Msg
 viewLoveButton model =
     let
         buttonClass =
-            case model.liked of
-                True ->
-                    "fa-heart"
+            if model.liked then
+                "fa-heart"
 
-                False ->
-                    "fa-heart-o"
+            else
+                "fa-heart-o"
     in
     div [ class "like-button" ]
         [ i
@@ -55,6 +59,46 @@ viewLoveButton model =
             , onClick ToggleLike
             ]
             []
+        ]
+
+
+viewComment : String -> Html Msg
+viewComment comment =
+    li []
+        [ strong [] [ text "Comment:" ]
+        , text (" " ++ comment)
+        ]
+
+
+viewCommentList : List String -> Html Msg
+viewCommentList comments =
+    case comments of
+        [] ->
+            text ""
+
+        _ ->
+            div [ class "comments" ]
+                [ ul []
+                    (List.map viewComment comments)
+                ]
+
+
+viewComments : Model -> Html Msg
+viewComments model =
+    div []
+        [ viewCommentList model.comments
+        , form [ class "new-comment", onSubmit SaveComment ]
+            [ input
+                [ type_ "text"
+                , placeholder "Add a comment..."
+                , value model.newComment
+                , onInput UpdateComment
+                ]
+                []
+            , button
+                [ disabled (String.isEmpty model.newComment) ]
+                [ text "Save" ]
+            ]
         ]
 
 
@@ -70,6 +114,25 @@ view model =
 
 type Msg
     = ToggleLike
+    | UpdateComment String
+    | SaveComment
+
+
+saveNewComment : Model -> Model
+saveNewComment model =
+    let
+        comment =
+            String.trim model.newComment
+    in
+    case comment of
+        "" ->
+            model
+
+        _ ->
+            { model
+                | comments = model.comments ++ [ comment ]
+                , newComment = ""
+            }
 
 
 update : Msg -> Model -> Model
@@ -77,6 +140,12 @@ update msg model =
     case msg of
         ToggleLike ->
             { model | liked = not model.liked }
+
+        UpdateComment comment ->
+            { model | newComment = comment }
+
+        SaveComment ->
+            saveNewComment model
 
 
 main : Program () Model Msg
